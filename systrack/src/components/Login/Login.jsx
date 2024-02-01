@@ -37,27 +37,24 @@ export default function Login() {
     // }
 
     const getAuthenToken = async () => {
-
         const response = await fetch(
-          SERVER_URL + "authen_request",
-          {
-            method: "POST",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              username: md5(username)
-            })
-          }
+            SERVER_URL + "authen_request",
+            {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username: md5(username),
+                    password: md5(password) // Assuming password is already hashed on the client side
+                })
+            }
         );
     
         const data = await response.json();
-        // console.log(data);
         return data;
-    
-    
-      };
+    };
 
 
      //* Function GetAccressToken
