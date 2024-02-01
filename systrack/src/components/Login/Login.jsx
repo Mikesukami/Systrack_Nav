@@ -37,27 +37,31 @@ export default function Login() {
     // }
 
     const getAuthenToken = async () => {
-        const response = await fetch(SERVER_URL + "authen_request", {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                username: md5(username),
-                password: md5(password)
-            })
-        });
-        
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
+        try {
+            const response = await fetch(
+                SERVER_URL + "authen_request",
+                {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        username: md5(username)
+                    })
+                }
+            );
+    
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+    
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error fetching authentication token:', error);
+            throw error; // Rethrow the error to propagate it to the caller
         }
-
-        console.log(response);
-        
-        const data = await response.json();
-        return data;
-        
     };
 
 
