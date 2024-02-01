@@ -54,9 +54,17 @@ export default function Login() {
         }
 
         console.log(response);
-        
-        const data = await response.json();
-        return data;
+
+        // const data = await response.json();
+        // return data;
+        try {
+            const data = await response.json();
+            console.log(data);
+            return data;
+        } catch (error) {
+            console.error('Error parsing JSON:', error);
+            throw new Error('Invalid JSON response');
+        }
         
     };
 
